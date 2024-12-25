@@ -51,3 +51,14 @@ export type ErrorMessageProps = {
 export type Children = {
   children: React.ReactNode;
 };
+
+export interface Photo {
+  id: string;
+  alt_description: string | null;
+  color: string;
+  urls: {
+    small: string;
+    regular: string;
+    [key: string]: string;
+  };
+}

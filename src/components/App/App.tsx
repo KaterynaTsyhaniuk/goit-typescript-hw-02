@@ -45,10 +45,11 @@ function App() {
         const { results, total_pages } = await getPhotos(query, page);
 
         if (!results.length) {
-          return setIsEmpty(true);
+          setIsEmpty(true);
+          return;
         }
         setImages((prevImages) => [...prevImages, ...results]);
-        setIsVisible(total_pages > 1 && page < total_pages);
+        setIsVisible(page < total_pages);
       } catch (error: unknown) {
         if (error instanceof Error) {
           setError(error.message);
