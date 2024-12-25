@@ -1,28 +1,28 @@
 import { Toaster } from "react-hot-toast";
 import "./App.css";
-import SearchBar from "./SearchBar/SearchBar";
+import SearchBar from "../SearchBar/SearchBar";
 import { useEffect, useState } from "react";
-import { getPhotos } from "../apiService/photos";
-import ImageGallery from "./ImageGallery/ImageGallery";
-import Loader from "./Loader/Loader";
-import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
-import ImageModal from "./ImageModal/ImageModal";
-import ErrorMessage from "./ErrorMessage/ErrorMessage";
+import { getPhotos } from "../../apiService/photos";
+import ImageGallery from "../ImageGallery/ImageGallery";
+import Loader from "../Loader/Loader";
+import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "../ImageModal/ImageModal";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { Image } from "./App.types";
 
 function App() {
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [isEmpty, setIsEmpty] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [images, setImages] = useState<Image[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+  const [modalAlt, setModalAlt] = useState<string>("");
+  const [modalSrc, setModalSrs] = useState<string>("");
 
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalAlt, setModalAlt] = useState("");
-  const [modalSrc, setModalSrs] = useState("");
-
-  function openModal(src, alt) {
+  function openModal(src: string, alt: string) {
     setIsOpen(true);
     setModalAlt(alt);
     setModalSrs(src);
@@ -49,8 +49,12 @@ function App() {
         }
         setImages((prevImages) => [...prevImages, ...results]);
         setIsVisible(total_pages > 1 && page < total_pages);
-      } catch (error) {
-        setError(error.message);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else if (typeof error === "string") {
+          setError(error);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -59,7 +63,7 @@ function App() {
     fetchImages();
   }, [query, page]);
 
-  const handleSubmit = (value) => {
+  const handleSubmit = (value: string) => {
     setQuery(value);
     setImages([]);
     setPage(1);

@@ -1,7 +1,8 @@
+import { ImageGalleryProps } from "../App/App.types";
 import Grid from "../Grid/Grid";
 import ImageCard from "../ImageCard/ImageCard";
 
-function ImageGallery({ images, openModal }) {
+const ImageGallery: React.FC<ImageGalleryProps> = ({ images, openModal }) => {
   return (
     <Grid>
       {images.map(({ id, alt_description, color, urls }) => (
@@ -15,6 +16,6 @@ function ImageGallery({ images, openModal }) {
       ))}
     </Grid>
   );
-}
+};
 
 export default ImageGallery;

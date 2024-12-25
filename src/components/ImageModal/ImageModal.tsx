@@ -1,4 +1,5 @@
 import Modal from "react-modal";
+import { ImageModalProps } from "../App/App.types";
 
 const customStyles = {
   content: {
@@ -11,13 +12,18 @@ const customStyles = {
     overflow: "auto",
   },
   overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.75)", // затемнений фон
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
   },
 };
 
 Modal.setAppElement("#root");
 
-function ImageModal({ modalIsOpen, closeModal, alt, src }) {
+const ImageModal: React.FC<ImageModalProps> = ({
+  modalIsOpen,
+  closeModal,
+  alt,
+  src,
+}) => {
   return (
     <div>
       <Modal
@@ -30,6 +36,6 @@ function ImageModal({ modalIsOpen, closeModal, alt, src }) {
       </Modal>
     </div>
   );
-}
+};
 
 export default ImageModal;
