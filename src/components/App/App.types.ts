@@ -2,20 +2,20 @@ export type SearchBarProps = {
   onSubmit: (value: string) => void;
 };
 
-export interface Image {
-  id: string;
-  alt_description: string | null;
-  color: string;
-  urls: {
-    small: string;
-    regular: string;
-    [key: string]: string;
-  };
-}
+// export interface Image {
+//   id: string;
+//   alt_description: string | null;
+//   color: string;
+//   urls: {
+//     small: string;
+//     regular: string;
+//     [key: string]: string;
+//   };
+// }
 
 export type ImageGalleryProps = {
   openModal: (src: string, alt: string) => void;
-  images: Image[];
+  images: Photo[];
 };
 
 export type OpenModal = (src: string, alt: string) => void;
@@ -61,4 +61,9 @@ export interface Photo {
     regular: string;
     [key: string]: string;
   };
+}
+
+export interface ResponseData {
+  results: Photo[];
+  total_pages: number;
 }
